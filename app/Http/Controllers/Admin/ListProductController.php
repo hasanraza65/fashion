@@ -28,6 +28,14 @@ class ListProductController extends Controller
         return view('admin.products.list', compact(['products', 'title']));
     }
 
+    public function apiProducts()
+    {
+
+        $products = Product::where('is_active', 1)->get();
+
+        return view('admin.products.list', compact(['products']));
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -132,12 +140,13 @@ class ListProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         if (Auth::user()->is_admin == 0) {
             return redirect(route('home'));
         }
 
         $request->validate([
-            'name' => 'required|unique:products',
+            'name' => 'required',
             'sort_description' => 'required',
             'description' => 'required',
             'image' =>  'image',
@@ -170,6 +179,7 @@ class ListProductController extends Controller
         $product->p_qty = $request->p_qty;
         $product->p_price = $request->p_price;
         $product->in_stock = $in_stock;
+        $product->is_active = $request->is_active;
         
         $product->update();
         session()->flash('success', ' Product Updated Successfully');

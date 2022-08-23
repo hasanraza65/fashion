@@ -179,7 +179,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\app\\storage\\framework/cache/data',
+        'path' => 'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\git files\\fashion\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -345,12 +345,12 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\app\\storage\\app',
+        'root' => 'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\git files\\fashion\\storage\\app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\app\\storage\\app/public',
+        'root' => 'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\git files\\fashion\\storage\\app/public',
         'url' => 'http://127.0.0.1:8000/storage',
         'visibility' => 'public',
       ),
@@ -367,7 +367,7 @@
     ),
     'links' => 
     array (
-      'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\app\\public\\storage' => 'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\app\\storage\\app/public',
+      'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\git files\\fashion\\public\\storage' => 'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\git files\\fashion\\storage\\app/public',
     ),
   ),
   'hashing' => 
@@ -401,13 +401,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\app\\storage\\logs/laravel.log',
+        'path' => 'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\git files\\fashion\\storage\\logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\app\\storage\\logs/laravel.log',
+        'path' => 'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\git files\\fashion\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -457,7 +457,7 @@
       ),
       'emergency' => 
       array (
-        'path' => 'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\app\\storage\\logs/laravel.log',
+        'path' => 'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\git files\\fashion\\storage\\logs/laravel.log',
       ),
     ),
   ),
@@ -514,7 +514,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\app\\resources\\views/vendor/mail',
+        0 => 'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\git files\\fashion\\resources\\views/vendor/mail',
       ),
     ),
   ),
@@ -593,7 +593,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\app\\storage\\framework/sessions',
+    'files' => 'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\git files\\fashion\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -613,9 +613,9 @@
   array (
     'paths' => 
     array (
-      0 => 'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\app\\resources\\views',
+      0 => 'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\git files\\fashion\\resources\\views',
     ),
-    'compiled' => 'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\app\\storage\\framework\\views',
+    'compiled' => 'E:\\Bhai Log\\upwork\\PROJECT 2\\Task 1\\git files\\fashion\\storage\\framework\\views',
   ),
   'flare' => 
   array (

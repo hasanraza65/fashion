@@ -60,7 +60,7 @@
                      <div class="form-group row">
 					  <label for="input-25" class="col-sm-2 col-form-label">Product Quantities</label>
 					  <div class="col-sm-10">
-                        <input min="0" value="{{$product->p_qty}}" type="number" class="form-control" id="input-25" placeholder="Enter Product QTY" name="p_price" value="" required autocomplete="p_qty" autofocus>
+                        <input min="0" value="{{$product->p_qty}}" type="number" class="form-control" id="input-25" placeholder="Enter Product QTY" name="p_qty" value="" required autocomplete="p_qty" autofocus>
 					  </div>
                      </div>
 
@@ -68,6 +68,21 @@
 					  <label for="input-26" class="col-sm-2 col-form-label">Product Price (Per Quantity)</label>
 					  <div class="col-sm-10">
                         <input min="0" value="{{$product->p_price}}" type="number" class="form-control" id="input-26" placeholder="Enter Product Per QTY Price" name="p_price" value="" required autocomplete="p_qty" autofocus>
+					  </div>
+                     </div>
+
+                     <div class="form-group row">
+					  <label for="input-27" class="col-sm-2 col-form-label">Choose One</label>
+					  <div class="col-sm-10">
+                        <select name="is_active" class="form-control">
+                            @if($product->is_active==1)
+                            <option value="1" selected>Active</option>
+                            <option value="0">Inactive</option>
+                            @else
+                            <option value="1">Active</option>
+                            <option value="0" selected>Inactive</option>
+                            @endif
+                        </select>
 					  </div>
                      </div>
 

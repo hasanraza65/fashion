@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//all products listing for all users
+Route::get('/products', 'AllProductsController@apiProducts');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -44,6 +47,11 @@ Route::get('/designer_orders/{id}', 'Api\Designer\DesignerOrderCController@order
 //new deisgner api
 //deisgner products
 Route::apiResource('/designer_products', 'Api\Designer\DesignerProductController')->middleware('auth:api');
+
+//new user api
+//create new order by hassan 
+Route::apiResource('/ecom_order', 'Api\User\EcomOrdersController')->middleware('auth:api');
+Route::apiResource('/ecom_order_item', 'Api\User\EcomOrderItemsController')->middleware('auth:api');
 
 
 //user

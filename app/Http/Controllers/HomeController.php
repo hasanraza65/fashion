@@ -39,4 +39,14 @@ class HomeController extends Controller
         return view('home');
         }
     }
+
+    public function apiProducts()
+    {
+
+        $products = Product::where('is_active', 1)->get();
+
+        return "hey";
+
+        //return view('admin.products.list', compact(['products']));
+    }
 }
