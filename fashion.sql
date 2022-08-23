@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 22, 2022 at 03:43 PM
+-- Generation Time: Aug 23, 2022 at 01:22 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.2.5
 
@@ -110,6 +110,69 @@ CREATE TABLE `designer_details` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `designer_products`
+--
+
+CREATE TABLE `designer_products` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ecom_orders`
+--
+
+CREATE TABLE `ecom_orders` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `payment_status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Pending',
+  `buyer_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `ecom_orders`
+--
+
+INSERT INTO `ecom_orders` (`id`, `payment_status`, `buyer_id`, `created_at`, `updated_at`) VALUES
+(1, 'Pending', 3, '2022-08-23 02:46:25', '2022-08-23 02:46:25'),
+(2, 'Pending', 3, '2022-08-23 02:46:58', '2022-08-23 02:46:58'),
+(3, 'Pending', 3, '2022-08-23 02:49:22', '2022-08-23 02:49:22'),
+(4, 'Pending', 3, '2022-08-23 02:51:08', '2022-08-23 02:51:08'),
+(5, 'Pending', 3, '2022-08-23 02:51:34', '2022-08-23 02:51:34');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ecom_order_items`
+--
+
+CREATE TABLE `ecom_order_items` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `selected_qty` int(11) NOT NULL DEFAULT 0,
+  `price` int(11) NOT NULL DEFAULT 0,
+  `ecom_order_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `ecom_order_items`
+--
+
+INSERT INTO `ecom_order_items` (`id`, `product_id`, `selected_qty`, `price`, `ecom_order_id`, `created_at`, `updated_at`) VALUES
+(3, 4, 2, 200, 3, '2022-08-23 02:49:22', '2022-08-23 02:49:22'),
+(4, 7, 3, 500, 3, '2022-08-23 02:49:22', '2022-08-23 02:49:22'),
+(5, 4, 2, 200, 4, '2022-08-23 02:51:08', '2022-08-23 02:51:08'),
+(6, 7, 3, 500, 4, '2022-08-23 02:51:08', '2022-08-23 02:51:08');
 
 -- --------------------------------------------------------
 
@@ -281,7 +344,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (25, '2022_08_17_091530_create_product_categories_table', 1),
 (26, '2022_08_17_091549_create_products_table', 1),
 (27, '2022_08_22_092119_add_cols_to_products', 2),
-(28, '2022_08_22_101336_alter_colsto_products', 3);
+(28, '2022_08_22_101336_alter_colsto_products', 3),
+(29, '2022_08_22_111747_create_designer_products_table', 4),
+(30, '2022_08_23_054759_create_table_ecom_orders', 4),
+(31, '2022_08_23_060346_create_orders_items', 4),
+(32, '2022_08_23_070032_create_ecom_order_items', 5);
 
 -- --------------------------------------------------------
 
@@ -306,7 +373,8 @@ CREATE TABLE `oauth_access_tokens` (
 --
 
 INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
-('b00774a3cb7648ffd65d21b94c4d84a600bfa6da853d0fe945214411e71db263deb7d1fe51fedac4', 3, 1, 'authToken', '[]', 0, '2022-08-22 06:28:21', '2022-08-22 06:28:21', '2023-08-22 11:28:21');
+('b00774a3cb7648ffd65d21b94c4d84a600bfa6da853d0fe945214411e71db263deb7d1fe51fedac4', 3, 1, 'authToken', '[]', 0, '2022-08-22 06:28:21', '2022-08-22 06:28:21', '2023-08-22 11:28:21'),
+('f556cc15b1ab7ee5da875de957021d150ea43ab746b2d505f8786d4974445dd05bcc94bc23a8810e', 3, 1, 'authToken', '[]', 0, '2022-08-23 01:21:40', '2022-08-23 01:21:40', '2023-08-23 06:21:40');
 
 -- --------------------------------------------------------
 
@@ -457,9 +525,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `user_id`, `name`, `p_price`, `p_qty`, `sort_description`, `description`, `image`, `in_stock`, `is_active`, `created_at`, `updated_at`) VALUES
-(3, 1, 'Test 2', NULL, NULL, 'short des 2', 'long des 2', '', 1, 1, '2022-08-22 03:59:51', '2022-08-22 03:59:51'),
-(4, 1, 'Test 3', NULL, NULL, 'des 3', 'des 33', '', 1, 1, '2022-08-22 04:11:12', '2022-08-22 04:11:12'),
-(7, 3, 'product from api', 800.00, 15, 'test short', 'test description', '', 1, 1, '2022-08-22 06:50:12', '2022-08-22 06:50:12');
+(3, 1, 'Test 2', 600.00, 500, 'short des 2', 'long des 2', NULL, 1, 1, '2022-08-22 03:59:51', '2022-08-23 05:16:58'),
+(4, 1, 'Test 3', 400.00, 46, 'des 3', 'des 33', '', 1, 1, '2022-08-22 04:11:12', '2022-08-23 02:51:08'),
+(7, 3, 'product from api', 800.00, 9, 'test short', 'test description', '', 1, 1, '2022-08-22 06:50:12', '2022-08-23 02:51:08');
 
 -- --------------------------------------------------------
 
@@ -577,6 +645,27 @@ ALTER TABLE `catlog_categories`
 --
 ALTER TABLE `designer_details`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `designer_products`
+--
+ALTER TABLE `designer_products`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ecom_orders`
+--
+ALTER TABLE `ecom_orders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `ecom_orders_buyer_id_foreign` (`buyer_id`);
+
+--
+-- Indexes for table `ecom_order_items`
+--
+ALTER TABLE `ecom_order_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `ecom_order_items_product_id_foreign` (`product_id`),
+  ADD KEY `ecom_order_items_ecom_order_id_foreign` (`ecom_order_id`);
 
 --
 -- Indexes for table `extras`
@@ -751,6 +840,24 @@ ALTER TABLE `designer_details`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `designer_products`
+--
+ALTER TABLE `designer_products`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ecom_orders`
+--
+ALTER TABLE `ecom_orders`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `ecom_order_items`
+--
+ALTER TABLE `ecom_order_items`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `extras`
 --
 ALTER TABLE `extras`
@@ -802,7 +909,7 @@ ALTER TABLE `member_transactions`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `oauth_clients`
@@ -857,6 +964,23 @@ ALTER TABLE `transactions`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `ecom_orders`
+--
+ALTER TABLE `ecom_orders`
+  ADD CONSTRAINT `ecom_orders_buyer_id_foreign` FOREIGN KEY (`buyer_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `ecom_order_items`
+--
+ALTER TABLE `ecom_order_items`
+  ADD CONSTRAINT `ecom_order_items_ecom_order_id_foreign` FOREIGN KEY (`ecom_order_id`) REFERENCES `ecom_orders` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `ecom_order_items_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE SET NULL;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
