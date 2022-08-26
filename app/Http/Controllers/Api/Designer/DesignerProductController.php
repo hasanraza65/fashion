@@ -28,6 +28,13 @@ class DesignerProductController extends Controller
        
         return response(['my_products' => $products]);
     }
+    public function designerProducts($id)
+    {
+        //$designer_id=1;
+        $products = Product::where('user_id',$id)->get();
+       
+        return response(['designer_products' => $products]);
+    }
 
     /**
      * Show the form for creating a new resource.

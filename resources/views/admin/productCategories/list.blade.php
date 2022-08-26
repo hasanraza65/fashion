@@ -18,7 +18,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                <a href="{{route('products.create')}}" class="btn btn-success waves-effect waves-light m-1" style="float: right;">Add New</a>
+                <a href="{{route('productcategories.create')}}" class="btn btn-success waves-effect waves-light m-1" style="float: right;">Add New</a>
 
                 </div>
                 <div class="card-header"><i class="fa fa-table"></i> {{$title}}</div>
@@ -27,49 +27,40 @@
                         <table id="example" class="table table-bordered">
                             <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>Image</th>
                                     <th>Name</th>
-                                    <th>Short Description</th>
-                                    <th>In Stock</th>
-                                    <th>Active</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($products as $productss)
+                                {{$count=1}}
+                                @foreach($product_category as $category)
                                 <tr>
-                                    <td><img src="{{ $productss->image }}" class="img-thumbnail" width="200" /></td>
-                                    <td>{{$productss->name}}</td>
-                                    <td>{{$productss->sort_description}}</td>
-                                    <td>@if($productss->in_stock==1)
-                                        Yes
-                                        @else
-                                        No
-                                        @endif
-                                    </td>
-                                    <td>@if($productss->is_active==1)
-                                        Yes
-                                        @else
-                                        No
-                                        @endif</td>
+                                    <td>{{$count}}</td>
+                                    <td><img src="{{ $category->icon }}" class="img-thumbnail" width="200" /></td>
+                                    
+                                    <td>{{$category->name}}</td>
+                                    
+                                    
                                     <td>
-                                        <a href="{{route('products.edit',$productss->id)}}"><button type="button" class="btn btn-success btn-round waves-effect waves-light m-1">Edit</button></a>
-                                        <form action="{{route('products.destroy',$productss->id)}}" method="post">
+                                        <a href="{{route('productcategories.edit',$category->id)}}"><button type="button" class="btn btn-success btn-round waves-effect waves-light m-1">Edit</button></a>
+                                        <form action="{{route('productcategories.destroy',$category->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
                                             <button onclick="return confirm('Are you sure?')" type="submit" name="submit" class="btn btn-danger btn-round waves-effect waves-light m-1">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
+                                {{$count++}}
                                 @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
+                                    <th>#</th>
                                     <th>Image</th>
                                     <th>Name</th>
-                                    <th>Short Description</th>
-                                    <th>In Stock</th>
-                                    <th>Active</th>
+                                   
                                     <th>Action</th>
                                 </tr>
                             </tfoot>

@@ -47,11 +47,15 @@ Route::get('/designer_orders/{id}', 'Api\Designer\DesignerOrderCController@order
 //new deisgner api
 //deisgner products
 Route::apiResource('/designer_products', 'Api\Designer\DesignerProductController')->middleware('auth:api');
+Route::get('/products_by_designer/{id}', 'Api\Designer\DesignerProductController@designerProducts')->middleware('auth:api');
 
 //new user api
 //create new order by hassan 
 Route::apiResource('/ecom_order', 'Api\User\EcomOrdersController')->middleware('auth:api');
 Route::apiResource('/ecom_order_item', 'Api\User\EcomOrderItemsController')->middleware('auth:api');
+
+/////product categories
+Route::apiResource('/productcategories', 'Api\Designer\CategoriesController')->middleware('auth:api');
 
 
 //user

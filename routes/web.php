@@ -32,6 +32,7 @@ Route::resource('/cat', 'Admin\CatlogCategoryController');
 Route::resource('/extra', 'Admin\ExtraController');
 Route::resource('/manufacturing_cost', 'Admin\ManufacturingCostController');
 Route::resource('/order_compelete', 'Admin\OrderCompeleteController');
+Route::resource('/productcategories', 'Admin\ProductCategoryController');
 
 
 //new routes admin

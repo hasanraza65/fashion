@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\ProductCategory;
+use auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProductCategoryController extends Controller
 {
@@ -19,7 +21,7 @@ class ProductCategoryController extends Controller
         }
         $product_category = ProductCategory::all();
         $title = "Product Categories List";
-        // return view('admin.catlogCategoriesList', compact(['catlog_categories', 'title']));
+         return view('admin.productCategories.list', compact(['product_category', 'title']));
     }
 
     /**
@@ -33,7 +35,7 @@ class ProductCategoryController extends Controller
             return redirect(route('home'));
         }
         $title = "Product Category Create";
-        // return view('admin.catlogCategoriesCreate', compact(['title']));
+        return view('admin.productCategories.add', compact(['title']));
     }
 
     /**
@@ -55,13 +57,14 @@ class ProductCategoryController extends Controller
         $image1 = $request->file('icon');
         $imageName1 = time() . $image1->getClientOriginalName();
         $filePath1 = 'images/product_categories' . '/' . $imageName1;
-        Storage::disk('s3')->put($filePath1, file_get_contents($image1));
+        //Storage::disk('s3')->put($filePath1, file_get_contents($image1));
         $product_category = new ProductCategory;
         $product_category->name = $request->name;
-        $product_category->icon = "https://lynfashion.s3.ap-south-1.amazonaws.com/" . $filePath1;
+        //$product_category->icon = "https://lynfashion.s3.ap-south-1.amazonaws.com/" . $filePath1;
+        $product_category->icon =$filePath1;
         $product_category->save();
         session()->flash('success', 'Product Category Added Successfully');
-        // return redirect()->route('cat.index');
+        return redirect()->route('productcategories.index');
     }
 
     /**
@@ -88,6 +91,9 @@ class ProductCategoryController extends Controller
         }
         $product_category = ProductCategory::find($id);
         $title = "Product Category Edit";
+        return view('admin.productCategories.edit', compact(['product_category', 'title']));
+
+        
     }
 
     /**
@@ -106,7 +112,7 @@ class ProductCategoryController extends Controller
 
 
         $product_category = ProductCategory::find($id);
-        $file = $request->file('image');
+        $file = $request->file('icon');
         if ($file != '') {
             $request->validate([
                 'name' => 'required|unique:product_categories,name,' . $id,
@@ -115,11 +121,12 @@ class ProductCategoryController extends Controller
             $image1 = $request->file('icon');
             $imageName1 = time() . $image1->getClientOriginalName();
             $filePath1 = 'images/product_categories' . '/' . $imageName1;
-            Storage::disk('s3')->put($filePath1, file_get_contents($image1));
+            //Storage::disk('s3')->put($filePath1, file_get_contents($image1));
             if ($product_category->icon != null) {
-                Storage::disk('s3')->delete(parse_url($product_category->icon));
+                //Storage::disk('s3')->delete(parse_url($product_category->icon));
             }
-            $product_category->icon = "https://lynfashion.s3.ap-south-1.amazonaws.com/" . $filePath1;
+            //$product_category->icon = "https://lynfashion.s3.ap-south-1.amazonaws.com/" . $filePath1;
+            $product_category->icon = $filePath1;
         } else {
             $request->validate([
                 'name' => 'required|unique:product_categories,name,' . $id,
@@ -128,6 +135,7 @@ class ProductCategoryController extends Controller
         $product_category->name = $request->name;
         $product_category->update();
         session()->flash('success', 'Product Category Updated Successfully');
+        return redirect()->route('productcategories.index');
     }
 
     /**
@@ -142,7 +150,8 @@ class ProductCategoryController extends Controller
         session()->flash('success', 'Product Category Deleted Successfully');
         Storage::disk('s3')->delete(parse_url($product_category->icon));
         $product_category->delete();
-
+        return redirect()->route('productcategories.index');
+        
 
     }
 }
