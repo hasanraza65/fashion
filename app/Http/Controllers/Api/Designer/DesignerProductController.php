@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use App\ProductCategory;
 
 use auth;
 use File;
@@ -98,6 +99,7 @@ class DesignerProductController extends Controller
         $product->p_qty = $request->p_qty;
         $product->p_price = $request->p_price;
         $product->in_stock = $in_stock;
+        $product->category_id = $request->p_category;
         $product->save();
 
         $products = Product::where('user_id', auth::user()->id)->get();
@@ -217,6 +219,7 @@ class DesignerProductController extends Controller
         $product->p_qty = $request->p_qty;
         $product->p_price = $request->p_price;
         $product->in_stock = $in_stock;
+        $product->category_id = $request->p_category;
         $product->update();
 
         $products = Product::where('user_id', auth::user()->id)->get();

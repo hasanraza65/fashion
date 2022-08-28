@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Product;
+use App\ProductCategory;
 
 use Illuminate\Http\Request;
 
@@ -13,5 +14,13 @@ class AllProductsController extends Controller
         $products = Product::where('is_active', 1)->get();
 
         return response(['products' => $products]);
+    }
+
+    public function apiProductsCategories()
+    {
+
+        $productscategories = ProductCategory::all();
+
+        return response(['product_categories' => $productscategories]);
     }
 }

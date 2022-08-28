@@ -52,6 +52,18 @@
 					  </div>
                      </div>
 
+					 <div class="form-group row">
+					  <label for="input-25" class="col-sm-2 col-form-label">Choose Category</label>
+					  <div class="col-sm-10">
+                        <select class="form-control" name="p_category" required>
+							<option>Choose One...</option>
+							@foreach($categories as $categoriess)
+							<option value="{{$categoriess->id}}">{{$categoriess->name}}</option>
+							@endforeach
+						</select>
+					  </div>
+                     </div>
+
                      <div class="form-group row">
 					  <label for="input-25" class="col-sm-2 col-form-label">Product Quantities</label>
 					  <div class="col-sm-10">

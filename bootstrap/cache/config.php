@@ -36,12 +36,13 @@
       19 => 'Illuminate\\Translation\\TranslationServiceProvider',
       20 => 'Illuminate\\Validation\\ValidationServiceProvider',
       21 => 'Illuminate\\View\\ViewServiceProvider',
-      22 => 'App\\Providers\\AppServiceProvider',
-      23 => 'App\\Providers\\AuthServiceProvider',
-      24 => 'App\\Providers\\EventServiceProvider',
-      25 => 'App\\Providers\\RouteServiceProvider',
-      26 => 'Laravel\\Tinker\\TinkerServiceProvider',
-      27 => 'Laravel\\Passport\\PassportServiceProvider',
+      22 => 'Laravel\\Socialite\\SocialiteServiceProvider',
+      23 => 'App\\Providers\\AppServiceProvider',
+      24 => 'App\\Providers\\AuthServiceProvider',
+      25 => 'App\\Providers\\EventServiceProvider',
+      26 => 'App\\Providers\\RouteServiceProvider',
+      27 => 'Laravel\\Tinker\\TinkerServiceProvider',
+      28 => 'Laravel\\Passport\\PassportServiceProvider',
     ),
     'aliases' => 
     array (
@@ -81,6 +82,7 @@
       'URL' => 'Illuminate\\Support\\Facades\\URL',
       'Validator' => 'Illuminate\\Support\\Facades\\Validator',
       'View' => 'Illuminate\\Support\\Facades\\View',
+      'Socialite' => 'Laravel\\Socialite\\Facades\\Socialite',
     ),
   ),
   'auth' => 
@@ -179,7 +181,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'C:\\xampp\\htdocs\\fashion\\storage\\framework/cache/data',
+        'path' => 'F:\\BHAI LOG\\5 Tech Sol Projects\\Upwork project\\Project 2\\TASK 1\\git file\\fashion\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -268,7 +270,7 @@
         'port' => '3306',
         'database' => 'fashion',
         'username' => 'root',
-        'password' => '',
+        'password' => 'game12345',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -288,7 +290,7 @@
         'port' => '3306',
         'database' => 'fashion',
         'username' => 'root',
-        'password' => '',
+        'password' => 'game12345',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -303,7 +305,7 @@
         'port' => '3306',
         'database' => 'fashion',
         'username' => 'root',
-        'password' => '',
+        'password' => 'game12345',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -345,12 +347,12 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\xampp\\htdocs\\fashion\\storage\\app',
+        'root' => 'F:\\BHAI LOG\\5 Tech Sol Projects\\Upwork project\\Project 2\\TASK 1\\git file\\fashion\\storage\\app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\xampp\\htdocs\\fashion\\storage\\app/public',
+        'root' => 'F:\\BHAI LOG\\5 Tech Sol Projects\\Upwork project\\Project 2\\TASK 1\\git file\\fashion\\storage\\app/public',
         'url' => 'http://127.0.0.1:8000/storage',
         'visibility' => 'public',
       ),
@@ -367,7 +369,7 @@
     ),
     'links' => 
     array (
-      'C:\\xampp\\htdocs\\fashion\\public\\storage' => 'C:\\xampp\\htdocs\\fashion\\storage\\app/public',
+      'F:\\BHAI LOG\\5 Tech Sol Projects\\Upwork project\\Project 2\\TASK 1\\git file\\fashion\\public\\storage' => 'F:\\BHAI LOG\\5 Tech Sol Projects\\Upwork project\\Project 2\\TASK 1\\git file\\fashion\\storage\\app/public',
     ),
   ),
   'hashing' => 
@@ -401,13 +403,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'C:\\xampp\\htdocs\\fashion\\storage\\logs/laravel.log',
+        'path' => 'F:\\BHAI LOG\\5 Tech Sol Projects\\Upwork project\\Project 2\\TASK 1\\git file\\fashion\\storage\\logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'C:\\xampp\\htdocs\\fashion\\storage\\logs/laravel.log',
+        'path' => 'F:\\BHAI LOG\\5 Tech Sol Projects\\Upwork project\\Project 2\\TASK 1\\git file\\fashion\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -457,7 +459,7 @@
       ),
       'emergency' => 
       array (
-        'path' => 'C:\\xampp\\htdocs\\fashion\\storage\\logs/laravel.log',
+        'path' => 'F:\\BHAI LOG\\5 Tech Sol Projects\\Upwork project\\Project 2\\TASK 1\\git file\\fashion\\storage\\logs/laravel.log',
       ),
     ),
   ),
@@ -514,7 +516,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'C:\\xampp\\htdocs\\fashion\\resources\\views/vendor/mail',
+        0 => 'F:\\BHAI LOG\\5 Tech Sol Projects\\Upwork project\\Project 2\\TASK 1\\git file\\fashion\\resources\\views/vendor/mail',
       ),
     ),
   ),
@@ -593,7 +595,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'C:\\xampp\\htdocs\\fashion\\storage\\framework/sessions',
+    'files' => 'F:\\BHAI LOG\\5 Tech Sol Projects\\Upwork project\\Project 2\\TASK 1\\git file\\fashion\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -613,9 +615,9 @@
   array (
     'paths' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\fashion\\resources\\views',
+      0 => 'F:\\BHAI LOG\\5 Tech Sol Projects\\Upwork project\\Project 2\\TASK 1\\git file\\fashion\\resources\\views',
     ),
-    'compiled' => 'C:\\xampp\\htdocs\\fashion\\storage\\framework\\views',
+    'compiled' => 'F:\\BHAI LOG\\5 Tech Sol Projects\\Upwork project\\Project 2\\TASK 1\\git file\\fashion\\storage\\framework\\views',
   ),
   'flare' => 
   array (
@@ -629,18 +631,8 @@
       'report_query_bindings' => true,
       'report_view_data' => true,
       'grouping_type' => NULL,
-      'report_logs' => true,
-      'maximum_number_of_collected_logs' => 200,
-      'censor_request_body_fields' => 
-      array (
-        0 => 'password',
-      ),
     ),
     'send_logs_as_events' => true,
-    'censor_request_body_fields' => 
-    array (
-      0 => 'password',
-    ),
   ),
   'ignition' => 
   array (

@@ -58,6 +58,22 @@
                      </div>
 
                      <div class="form-group row">
+					  <label for="input-25" class="col-sm-2 col-form-label">Choose Category</label>
+					  <div class="col-sm-10">
+                        <select class="form-control" name="p_category" required>
+							<option>Choose One...</option>
+							@foreach($categories as $categoriess)
+                            @if($categoriess->id == $product->category_id)
+							<option value="{{$categoriess->id}}" selected>{{$categoriess->name}}</option>
+                            @else
+                            <option value="{{$categoriess->id}}">{{$categoriess->name}}</option>
+                            @endif
+							@endforeach
+						</select>
+					  </div>
+                     </div>
+
+                     <div class="form-group row">
 					  <label for="input-25" class="col-sm-2 col-form-label">Product Quantities</label>
 					  <div class="col-sm-10">
                         <input min="0" value="{{$product->p_qty}}" type="number" class="form-control" id="input-25" placeholder="Enter Product QTY" name="p_qty" value="" required autocomplete="p_qty" autofocus>
@@ -89,7 +105,7 @@
 					 <div class="form-group row">
 					  <label class="col-sm-2 col-form-label"></label>
 					  <div class="col-sm-10">
-						<button type="submit" class="btn btn-primary px-5"><i class="icon-lock"></i> Create</button>
+						<button type="submit" class="btn btn-primary px-5"><i class="icon-lock"></i> Update</button>
 					  </div>
 					</div>
 					</form>

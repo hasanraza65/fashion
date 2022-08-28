@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
+use App\ProductCategory;
 use Auth;
 use File;
 use Illuminate\Support\Facades\Storage;
@@ -23,9 +24,10 @@ class ListProductController extends Controller
         }
 
         $products = Product::all();
+        $categories = ProductCategory::all();
         $title = "Product List";
 
-        return view('admin.products.list', compact(['products', 'title']));
+        return view('admin.products.list', compact(['products', 'title', 'categories']));
     }
 
     public function apiProducts()
@@ -48,8 +50,9 @@ class ListProductController extends Controller
             return redirect(route('home'));
         }
         $title = "Product  Create";
+        $categories = ProductCategory::all();
 
-        return view('admin.products.add', compact(['title']));
+        return view('admin.products.add', compact(['title', 'categories']));
     }
 
     /**
@@ -98,6 +101,7 @@ class ListProductController extends Controller
         $product->p_qty = $request->p_qty;
         $product->p_price = $request->p_price;
         $product->in_stock = $in_stock;
+        $product->category_id = $request->p_category;
         $product->save();
         session()->flash('success', ' Product Added Successfully');
         return redirect()->route('products.index');
@@ -126,9 +130,10 @@ class ListProductController extends Controller
             return redirect(route('home'));
         }
         $product = Product::find($id);
+        $categories = ProductCategory::all();
         $title = "Product  Edit";
 
-        return view('admin.products.edit', compact(['product','title']));
+        return view('admin.products.edit', compact(['product','title','categories']));
     }
 
     /**
@@ -180,6 +185,7 @@ class ListProductController extends Controller
         $product->p_price = $request->p_price;
         $product->in_stock = $in_stock;
         $product->is_active = $request->is_active;
+        $product->category_id = $request->p_category;
         
         $product->update();
         session()->flash('success', ' Product Updated Successfully');
