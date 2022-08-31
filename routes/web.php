@@ -41,6 +41,10 @@ Route::resource('/product_categories', 'Admin\ProductCategoryController');
 //Products Admin Routes (Hassan Raza)
 Route::resource('/products', 'Admin\ListProductController');
 
+//Orders Admin Routes (Hassan Raza)
+Route::resource('/shoporders', 'Admin\AdminEcomOrderController');
+Route::get('/manage_order_items/{id}', 'Admin\AdminEcomOrderController@manageOrderItemsView');
+Route::DELETE('/removeorderitem/{id}', 'Admin\AdminEcomOrderController@removeOrderItem');
 
 
 

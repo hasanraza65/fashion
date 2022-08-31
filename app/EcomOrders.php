@@ -11,5 +11,10 @@ class EcomOrders extends Model
         return $this->hasMany('App\EcomOrderItems', 'ecom_order_id', 'id');
     }
 
+    public function orderBuyer()
+    {
+        return $this->hasOne('App\User', 'id', 'buyer_id');
+    }
+
     
 }

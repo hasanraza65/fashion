@@ -24,6 +24,7 @@ class EcomOrdersController extends Controller
 
         $orders = EcomOrders::where('buyer_id', auth::user()->id)
         ->with('orderItems')
+        ->with('orderBuyer')
         ->get();
        
         return response(['my_orders' => $orders]);
@@ -136,5 +137,19 @@ class EcomOrdersController extends Controller
     public function destroy(EcomOrders $ecomOrders)
     {
         //
+    }
+
+    public function paymentProcess(Request $request){
+
+        $order = EcomOrders::find($request->orderid);
+        $order->payment_status = "Paid";
+        $order->razorpayid = $request->razorpayid;
+        $order->update();
+
+
+        $arr = array("status" => 200, "message" => 'Payment Status Upadated');
+
+        return response($arr);
+
     }
 }

@@ -8,6 +8,6 @@ class EcomOrderItems extends Model
 {
     public function itemData()
     {
-        return $this->hasMany('App\Product', 'id', 'product_id');
+        return $this->hasOne('App\Product', 'id', 'product_id');
     }
 }

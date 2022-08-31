@@ -54,6 +54,7 @@ Route::get('/products_by_designer/{id}', 'Api\Designer\DesignerProductController
 //create new order by hassan 
 Route::apiResource('/ecom_order', 'Api\User\EcomOrdersController')->middleware('auth:api');
 Route::apiResource('/ecom_order_item', 'Api\User\EcomOrderItemsController')->middleware('auth:api');
+Route::post('/processpayment', 'Api\User\EcomOrdersController@paymentProcess');
 
 /////product categories
 Route::apiResource('/productcategories', 'Api\Designer\CategoriesController')->middleware('auth:api');

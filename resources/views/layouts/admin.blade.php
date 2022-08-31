@@ -120,6 +120,14 @@
         </li>
         <li>
             <a href="javaScript:void();" class="waves-effect">
+                <i class="zmdi zmdi-view-dashboard"></i> <span>Shop Orders</span><i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="sidebar-submenu">
+                <li><a href="{{route('shoporders.index')}}"><i class="zmdi zmdi-long-arrow-right"></i> View Orders</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javaScript:void();" class="waves-effect">
                 <i class="zmdi zmdi-view-dashboard"></i> <span>Product Categories</span><i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="sidebar-submenu">
