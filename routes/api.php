@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 //all products listing for all users
 Route::get('/products', 'AllProductsController@apiProducts');
 Route::get('/productscategories', 'AllProductsController@apiProductsCategories');
+Route::get('/product/{id}', 'AllProductsController@productDetail');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -55,6 +56,9 @@ Route::get('/products_by_designer/{id}', 'Api\Designer\DesignerProductController
 Route::apiResource('/ecom_order', 'Api\User\EcomOrdersController')->middleware('auth:api');
 Route::apiResource('/ecom_order_item', 'Api\User\EcomOrderItemsController')->middleware('auth:api');
 Route::post('/processpayment', 'Api\User\EcomOrdersController@paymentProcess');
+
+//delivery status 
+Route::get('/deliverystatus/{id}', 'Api\User\EcomOrdersController@fetchDeliveryStatus');
 
 /////product categories
 Route::apiResource('/productcategories', 'Api\Designer\CategoriesController')->middleware('auth:api');

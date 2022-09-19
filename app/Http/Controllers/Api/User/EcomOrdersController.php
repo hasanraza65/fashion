@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\User;
 use App\EcomOrders;
 use App\EcomOrderItems;
 use App\Product;
+use App\Deliverystatus;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use auth;
@@ -59,6 +60,7 @@ class EcomOrdersController extends Controller
         $ecom_order->buyer_id = Auth::user()->id;
         $ecom_order->save();
 
+
         $itemsarray = array();
         $itemsarray = $request->product_id;
 
@@ -91,7 +93,24 @@ class EcomOrdersController extends Controller
         }
         //ending inserting items
 
+            //add order delivery status  
+
+            $deliverystatus = new Deliverystatus;
+            $deliverystatus->status = "Ordered";
+            $deliverystatus->comment = "Order has been placed";
+            $deliverystatus->ecom_order_id = $ecom_order->id;
+            $deliverystatus->save();
+    
+            //ending order derlivery status
+
         return response(['order' => $ecom_order,'msg' => "Order Placed"]);
+    }
+
+    public function fetchDeliveryStatus($id){
+
+        $deliverystatus = DeliveryStatus::where('ecom_order_id', $id)->get();
+
+        return response(['deliverystatuses' => $deliverystatus]);
     }
 
     /**

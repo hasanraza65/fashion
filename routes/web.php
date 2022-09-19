@@ -46,6 +46,8 @@ Route::resource('/shoporders', 'Admin\AdminEcomOrderController');
 Route::get('/manage_order_items/{id}', 'Admin\AdminEcomOrderController@manageOrderItemsView');
 Route::DELETE('/removeorderitem/{id}', 'Admin\AdminEcomOrderController@removeOrderItem');
 
+//order status 
+Route::resource('/deliverystatus', 'Admin\DeliverystatusController');
 
 
 

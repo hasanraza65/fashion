@@ -55,7 +55,7 @@ class AdminEcomOrderController extends Controller
 
         $order = EcomOrders::find($id);
         $order->payment_status	= $request->payment_status;
-        $order->delivery_status	= $request->delivery_status;
+        //$order->delivery_status	= $request->delivery_status;
         $order->buyer_id	= $request->buyer_id;
         $order->update();
 

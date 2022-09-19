@@ -57,10 +57,10 @@ class ProductCategoryController extends Controller
         $image1 = $request->file('icon');
         $imageName1 = time() . $image1->getClientOriginalName();
         $filePath1 = 'images/product_categories' . '/' . $imageName1;
-        //Storage::disk('s3')->put($filePath1, file_get_contents($image1));
+        Storage::disk('s3')->put($filePath1, file_get_contents($image1));
         $product_category = new ProductCategory;
         $product_category->name = $request->name;
-        //$product_category->icon = "https://lynfashion.s3.ap-south-1.amazonaws.com/" . $filePath1;
+        $product_category->icon = "https://lynfashion.s3.ap-south-1.amazonaws.com/" . $filePath1;
         $product_category->icon =$filePath1;
         $product_category->save();
         session()->flash('success', 'Product Category Added Successfully');

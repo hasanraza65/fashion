@@ -23,4 +23,15 @@ class AllProductsController extends Controller
 
         return response(['product_categories' => $productscategories]);
     }
+
+    public function productDetail($id){
+
+       
+        $product = Product::find($id);
+        $categories = ProductCategory::all();
+
+        return response(['product' => $product]);
+        
+
+    }
 }
