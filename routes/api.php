@@ -71,3 +71,15 @@ Route::get('/user_trim_single/{id}', 'Api\User\UserTrimsController@get');
 Route::get('/user_trims', 'Api\User\UserTrimsController@index');
 Route::get('/user_fabric_single/{id}', 'Api\User\UserFabricsController@get');
 Route::get('/user_fabrics', 'Api\User\UserFabricsController@index');
+
+//favorite product api for user
+Route::apiResource('/favorite_product', 'Api\User\FavoriteProductsController')->middleware('auth:api');
+Route::get('/check_favorite_product', 'Api\User\FavoriteProductsController@checkFavorite')->middleware('auth:api');
+
+//search n filter user products
+Route::get('/searchproducts', 'AllProductsController@searchProducts');
+Route::get('/productsbycategory', 'AllProductsController@productsByCategory');
+
+//track order by tracking id 
+Route::get('/getorderbytrackingid', 'Api\User\EcomOrdersController@getOrderByTrackingId')->middleware('auth:api');
+

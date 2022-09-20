@@ -56,8 +56,11 @@ class EcomOrdersController extends Controller
 
         $newitemqty = 0;
 
+        $trackingid = $this->generateTrackingId();
+
         $ecom_order = new EcomOrders;
         $ecom_order->buyer_id = Auth::user()->id;
+        $ecom_order->tracking_id = $trackingid;
         $ecom_order->save();
 
 
@@ -169,6 +172,46 @@ class EcomOrdersController extends Controller
         $arr = array("status" => 200, "message" => 'Payment Status Upadated');
 
         return response($arr);
+
+    }
+
+    public function generateTrackingId(){
+
+        $trackingid = rand(10,100000000);
+
+        return $this->checkTrackingId($trackingid);
+
+    }
+
+    public function checkTrackingId($trackingdid){
+
+        $verifytrackingid = EcomOrders::where('tracking_id', $trackingdid)->get();
+
+        if(count($verifytrackingid) == 0){
+
+            return $trackingdid;
+
+        }else{
+
+            return $this->generateTrackingId();
+        }
+
+    }
+
+    public function getOrderByTrackingId(Request $request){
+
+        $trackingid = $request->tracking_id;
+        
+        $order = EcomOrders::where('tracking_id',$trackingid)
+        ->get();
+
+        foreach($order as $data){
+            $orderid = $data->id;
+        }
+
+        $status =  Deliverystatus::where('ecom_order_id', $orderid)->get();
+
+        return response(['order'=>$order, 'status_array'=>$status, 'msg' => "Found", 'status' => 200]);
 
     }
 }

@@ -31,7 +31,26 @@ class AllProductsController extends Controller
         $categories = ProductCategory::all();
 
         return response(['product' => $product]);
-        
 
+    }
+
+    public function searchProducts(Request $request){
+
+        $name = $request->title;
+
+        $products = Product::where('name', 'LIKE', '%'.$name.'%')
+        ->get();
+
+        return response(['products' => $products]);
+    }
+
+    public function productsByCategory(Request $request){
+
+        $category_id = $request->category_id;
+
+        $products = Product::where('category_id',$category_id)
+        ->get();
+
+        return response(['products' => $products]);
     }
 }

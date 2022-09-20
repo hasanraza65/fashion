@@ -588,6 +588,12 @@
       'secret' => 'Olwy9VfVy9BCe2za0mmg8e0/mQzLFLp+UCl9v32d',
       'region' => 'ap-south-1',
     ),
+    'facebook' => 
+    array (
+      'client_id' => '401006242185923',
+      'client_secret' => 'e6afe0e5cd45ba718ae5ea91799a8cb1',
+      'redirect' => '',
+    ),
   ),
   'session' => 
   array (
