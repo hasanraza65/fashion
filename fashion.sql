@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 31, 2022 at 02:32 PM
--- Server version: 10.4.20-MariaDB
+-- Generation Time: Sep 20, 2022 at 01:50 PM
+-- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.2.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -52,6 +52,13 @@ CREATE TABLE `banners` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `banners`
+--
+
+INSERT INTO `banners` (`id`, `name`, `icon`, `created_at`, `updated_at`) VALUES
+(1, 'test1', 'test.png', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -83,6 +90,34 @@ CREATE TABLE `catlog_categories` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `deliverystatuses`
+--
+
+CREATE TABLE `deliverystatuses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `comment` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ecom_order_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `deliverystatuses`
+--
+
+INSERT INTO `deliverystatuses` (`id`, `status`, `comment`, `ecom_order_id`, `created_at`, `updated_at`) VALUES
+(3, 'Ordered', 'Order has been placed', 9, '2022-09-19 08:16:01', '2022-09-19 08:16:01'),
+(4, 'Shipped', 'testing', 9, '2022-09-19 08:44:21', '2022-09-19 08:44:21'),
+(5, 'Shipped', 'tesgggg', 9, '2022-09-19 08:46:40', '2022-09-19 08:46:40'),
+(6, 'Arriving', 'ffff', 9, '2022-09-19 08:47:13', '2022-09-19 08:47:13'),
+(7, 'Out for delivery', NULL, 9, '2022-09-19 08:47:46', '2022-09-19 08:47:46'),
+(8, 'Out for delivery', NULL, 9, '2022-09-20 05:37:13', '2022-09-20 05:37:13'),
+(9, 'Ordered', 'Order has been placed', 10, '2022-09-20 05:59:56', '2022-09-20 05:59:56');
 
 -- --------------------------------------------------------
 
@@ -127,8 +162,9 @@ CREATE TABLE `ecom_orders` (
   `payment_status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Pending',
   `razorpayid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `delivery_status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'Processing',
+  `tracking_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `buyer_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -136,8 +172,15 @@ CREATE TABLE `ecom_orders` (
 -- Dumping data for table `ecom_orders`
 --
 
-INSERT INTO `ecom_orders` (`id`, `payment_status`, `razorpayid`, `delivery_status`, `buyer_id`, `created_at`, `updated_at`) VALUES
-(4, 'Paid', '123456', 'Processing', 1, '2022-08-31 11:01:46', '2022-08-31 06:11:29');
+INSERT INTO `ecom_orders` (`id`, `payment_status`, `razorpayid`, `delivery_status`, `tracking_id`, `buyer_id`, `created_at`, `updated_at`) VALUES
+(1, 'Pending', NULL, 'Processing', NULL, 3, '2022-08-23 02:46:25', '2022-08-23 02:46:25'),
+(2, 'Pending', NULL, 'Processing', NULL, 3, '2022-08-23 02:46:58', '2022-08-23 02:46:58'),
+(3, 'Pending', NULL, 'Processing', NULL, 3, '2022-08-23 02:49:22', '2022-08-23 02:49:22'),
+(4, 'Pending', NULL, 'Processing', NULL, 3, '2022-08-23 02:51:08', '2022-08-23 02:51:08'),
+(5, 'Pending', NULL, 'Processing', NULL, 3, '2022-08-23 02:51:34', '2022-08-23 02:51:34'),
+(8, 'Pending', NULL, 'Processing', NULL, 4, '2022-09-19 08:10:07', '2022-09-19 08:10:07'),
+(9, 'Pending', NULL, 'Out for delivery', NULL, 4, '2022-09-19 08:16:01', '2022-09-20 05:37:13'),
+(10, 'Pending', NULL, 'Processing', '30460147', 4, '2022-09-20 05:59:56', '2022-09-20 05:59:56');
 
 -- --------------------------------------------------------
 
@@ -154,6 +197,22 @@ CREATE TABLE `ecom_order_items` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `ecom_order_items`
+--
+
+INSERT INTO `ecom_order_items` (`id`, `product_id`, `selected_qty`, `price`, `ecom_order_id`, `created_at`, `updated_at`) VALUES
+(3, 4, 2, 200, 3, '2022-08-23 02:49:22', '2022-08-23 02:49:22'),
+(4, 7, 3, 500, 3, '2022-08-23 02:49:22', '2022-08-23 02:49:22'),
+(5, 4, 2, 200, 4, '2022-08-23 02:51:08', '2022-08-23 02:51:08'),
+(6, 7, 3, 500, 4, '2022-08-23 02:51:08', '2022-08-23 02:51:08'),
+(7, 4, 1, 200, 8, '2022-09-19 08:10:07', '2022-09-19 08:10:07'),
+(8, 7, 1, 500, 8, '2022-09-19 08:10:07', '2022-09-19 08:10:07'),
+(9, 4, 1, 200, 9, '2022-09-19 08:16:01', '2022-09-19 08:16:01'),
+(10, 7, 1, 500, 9, '2022-09-19 08:16:01', '2022-09-19 08:16:01'),
+(11, 4, 1, 200, 10, '2022-09-20 05:59:56', '2022-09-20 05:59:56'),
+(12, 7, 1, 500, 10, '2022-09-20 05:59:56', '2022-09-20 05:59:56');
 
 -- --------------------------------------------------------
 
@@ -231,6 +290,27 @@ CREATE TABLE `failed_jobs` (
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `favorite_products`
+--
+
+CREATE TABLE `favorite_products` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `favorite_products`
+--
+
+INSERT INTO `favorite_products` (`id`, `product_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(2, 2, 4, '2022-09-20 05:20:13', '2022-09-20 05:20:13');
 
 -- --------------------------------------------------------
 
@@ -325,13 +405,19 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (25, '2022_08_17_091530_create_product_categories_table', 1),
 (26, '2022_08_17_091549_create_products_table', 1),
 (27, '2022_08_22_092119_add_cols_to_products', 2),
-(28, '2022_08_22_101336_alter_colsto_products', 2),
-(29, '2022_08_22_111747_create_designer_products_table', 2),
-(30, '2022_08_23_054759_create_table_ecom_orders', 2),
-(31, '2022_08_23_070032_create_ecom_order_items', 2),
-(32, '2022_08_27_102146_addcolto_products', 2),
-(33, '2022_08_31_080707_add_col_to_ecom_orders', 3),
-(34, '2022_08_31_105927_addrazor_col_to_ecom_orders', 4);
+(28, '2022_08_22_101336_alter_colsto_products', 3),
+(29, '2022_08_22_111747_create_designer_products_table', 4),
+(30, '2022_08_23_054759_create_table_ecom_orders', 4),
+(31, '2022_08_23_060346_create_orders_items', 4),
+(32, '2022_08_23_070032_create_ecom_order_items', 5),
+(33, '2022_08_27_102146_addcolto_products', 6),
+(34, '2022_08_31_080707_add_col_to_ecom_orders', 7),
+(35, '2022_08_31_105927_addrazor_col_to_ecom_orders', 7),
+(36, '2022_09_19_121423_addmorecolto_users', 8),
+(37, '2022_09_19_124916_create_deliverystatuses_table', 9),
+(38, '2022_09_20_090417_create_favorite_products_table', 10),
+(39, '2022_09_20_103025_addmorecolto_product', 11),
+(40, '2022_09_20_103605_addmorecolto_table_ecom_orders', 12);
 
 -- --------------------------------------------------------
 
@@ -356,10 +442,15 @@ CREATE TABLE `oauth_access_tokens` (
 --
 
 INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
-('129e999776e90ae0ea1126367174c49630a0413b78b56ddd1859774b59933f5360f59025034b57c8', 1, 1, 'authToken', '[]', 0, '2022-08-31 06:03:59', '2022-08-31 06:03:59', '2023-08-31 11:03:59'),
-('55cf2a9a87f38a565fbaa33eedec3ef741bb3ca32c4a5151b14595da89a37440d3117cc91bb7687a', 1, 1, 'authToken', '[]', 0, '2022-08-31 06:05:05', '2022-08-31 06:05:05', '2023-08-31 11:05:05'),
-('838340f23d4e31074c068f8845af9ade440fde19f4837596ca4b3a88297fa1e9680c1067b674e279', 1, 3, 'authToken', '[]', 0, '2022-08-31 06:05:57', '2022-08-31 06:05:57', '2023-08-31 11:05:57'),
-('b01d8c82070a19aeac864fccb45cd4c493db4e704ee7ad19c51ec7ddac188d9a03951922c2f18249', 1, 1, 'authToken', '[]', 0, '2022-08-31 06:03:36', '2022-08-31 06:03:36', '2023-08-31 11:03:36');
+('11df122740792608b1113e25e74b052b6108bdf51e27681d2dc4b1fc8c7661825a4855ee2d08d993', 4, 1, 'authToken', '[]', 0, '2022-09-19 07:20:20', '2022-09-19 07:20:20', '2023-09-19 12:20:20'),
+('3ba0262467b826f16741b084c18960dc96ef1557a624b817cca385e5819a99fb270a81fead2e709f', 4, 3, 'authToken', '[]', 0, '2022-09-19 07:26:35', '2022-09-19 07:26:35', '2023-09-19 12:26:35'),
+('4096ff603f6a5b30f63030d13af10636032fe1e6de44bfb57a0298fe82275546894365c4a43b37ea', 3, 1, 'authToken', '[]', 0, '2022-09-19 07:19:58', '2022-09-19 07:19:58', '2023-09-19 12:19:58'),
+('57806a33820d652e6ccda8a4f9b1249020c7ef0b17d497103204229c73e1b43a7f6bc6195ee4f95b', 4, 3, 'authToken', '[]', 0, '2022-09-20 04:17:09', '2022-09-20 04:17:09', '2023-09-20 09:17:09'),
+('5ae4c082c064cb4aa0553477a898196dd01294a23f385c412124c6b69cfa850276a2d096f6638699', 4, 3, 'authToken', '[]', 0, '2022-09-19 07:28:38', '2022-09-19 07:28:38', '2023-09-19 12:28:38'),
+('b00774a3cb7648ffd65d21b94c4d84a600bfa6da853d0fe945214411e71db263deb7d1fe51fedac4', 3, 1, 'authToken', '[]', 0, '2022-08-22 06:28:21', '2022-08-22 06:28:21', '2023-08-22 11:28:21'),
+('d4292cc1586f72e1f2864ea6acba4bf9f1b0a38eb222435cc5b8f8b10fa8fbdb4ff384a3963c639e', 4, 3, 'authToken', '[]', 0, '2022-09-19 07:26:54', '2022-09-19 07:26:54', '2023-09-19 12:26:54'),
+('dc968f5cda3241e0f3aa2ca7997ef520b3afa6ecb455cf48d61813fb4b020a9e779f0ee9acea2e91', 4, 3, 'authToken', '[]', 0, '2022-09-19 07:25:47', '2022-09-19 07:25:47', '2023-09-19 12:25:47'),
+('f556cc15b1ab7ee5da875de957021d150ea43ab746b2d505f8786d4974445dd05bcc94bc23a8810e', 3, 1, 'authToken', '[]', 0, '2022-08-23 01:21:40', '2022-08-23 01:21:40', '2023-08-23 06:21:40');
 
 -- --------------------------------------------------------
 
@@ -401,9 +492,9 @@ CREATE TABLE `oauth_clients` (
 --
 
 INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `provider`, `redirect`, `personal_access_client`, `password_client`, `revoked`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Paint Personal Access Client', 'gdLCS6Zz8sRaHE9rBiw7p47yADQk7Ty7WEsGcuVT', NULL, 'http://localhost', 1, 0, 0, '2022-08-31 06:03:30', '2022-08-31 06:03:30'),
-(2, NULL, 'Paint Password Grant Client', 'ABcbhG5dyhuxxuPV01TY0jIBO23qjJAaIgRsSLog', 'users', 'http://localhost', 0, 1, 0, '2022-08-31 06:03:30', '2022-08-31 06:03:30'),
-(3, NULL, 'admin', 'BIDcVcttWhGviD6hxYsXpY3UeopVughtAfWBj1Wh', NULL, 'http://localhost', 1, 0, 0, '2022-08-31 06:05:49', '2022-08-31 06:05:49');
+(1, NULL, 'Paint Personal Access Client', '8IN1gUh2NEeH6FH9WJdXF9xJMxf9j3DHB8agOmVp', NULL, 'http://localhost', 1, 0, 0, '2022-08-22 06:27:46', '2022-08-22 06:27:46'),
+(2, NULL, 'Paint Password Grant Client', 'Ew50f91IdayGSsiKXXAGcHp22jSQ4ybSxTw4geEg', 'users', 'http://localhost', 0, 1, 0, '2022-08-22 06:27:46', '2022-08-22 06:27:46'),
+(3, 4, 'personalaccess', '2MdN5uEspnnfC7z3MJrIMYox1PWLS5JwtNjiX7Sm', 'users', 'http://localhost', 1, 0, 0, '2022-09-19 07:25:37', '2022-09-19 07:25:37');
 
 -- --------------------------------------------------------
 
@@ -423,8 +514,8 @@ CREATE TABLE `oauth_personal_access_clients` (
 --
 
 INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
-(1, 1, '2022-08-31 06:03:30', '2022-08-31 06:03:30'),
-(2, 3, '2022-08-31 06:05:49', '2022-08-31 06:05:49');
+(1, 1, '2022-08-22 06:27:46', '2022-08-22 06:27:46'),
+(2, 3, '2022-09-19 07:25:37', '2022-09-19 07:25:37');
 
 -- --------------------------------------------------------
 
@@ -501,6 +592,7 @@ CREATE TABLE `products` (
   `p_qty` int(11) DEFAULT NULL,
   `sort_description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `rating` double(8,2) DEFAULT 5.00,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `in_stock` tinyint(1) NOT NULL DEFAULT 1,
   `is_active` tinyint(1) NOT NULL DEFAULT 1,
@@ -512,9 +604,10 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `user_id`, `name`, `category_id`, `p_price`, `p_qty`, `sort_description`, `description`, `image`, `in_stock`, `is_active`, `created_at`, `updated_at`) VALUES
-(2, 1, 'Test Product', 1, NULL, 402, 'testing product short description', 'testing product long description', 'test.png', 1, 1, NULL, '2022-08-31 05:11:20'),
-(3, 1, 'test with cat', 2, 400.00, 505, 'test des', 'long des', '', 0, 1, '2022-08-28 02:53:58', '2022-08-31 05:11:20');
+INSERT INTO `products` (`id`, `user_id`, `name`, `category_id`, `p_price`, `p_qty`, `sort_description`, `description`, `rating`, `image`, `in_stock`, `is_active`, `created_at`, `updated_at`) VALUES
+(3, 1, 'Test 2', 1, 600.00, 500, 'short des 2', 'long des 2', 4.50, NULL, 1, 1, '2022-08-22 03:59:51', '2022-08-23 05:16:58'),
+(4, 1, 'Test 3', 1, 400.00, 43, 'des 3', 'des 33', 5.00, '', 1, 1, '2022-08-22 04:11:12', '2022-09-20 05:59:56'),
+(7, 3, 'product from api', 1, 800.00, 6, 'test short', 'test description', 5.00, '', 1, 1, '2022-08-22 06:50:12', '2022-09-20 05:59:56');
 
 -- --------------------------------------------------------
 
@@ -535,8 +628,7 @@ CREATE TABLE `product_categories` (
 --
 
 INSERT INTO `product_categories` (`id`, `name`, `icon`, `created_at`, `updated_at`) VALUES
-(1, 'Test Category', '', NULL, NULL),
-(2, 'Category 2', '', NULL, NULL);
+(1, 'Test 1', '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -556,7 +648,9 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `role_name`, `created_at`, `updated_at`) VALUES
-(1, 'admin', NULL, NULL);
+(1, 'admin', NULL, NULL),
+(2, 'designer', NULL, NULL),
+(4, 'customer', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -585,6 +679,9 @@ CREATE TABLE `users` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dob` date DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `role_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1',
   `gender` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -602,8 +699,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `phone`, `email_verified_at`, `role_id`, `gender`, `avatar`, `remarks`, `password`, `is_approved`, `is_admin`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', 'admin@mail.com', '3403877126', NULL, '1', NULL, NULL, NULL, '$2y$10$janHpavCkF2WkBF4iazR3.j9PrV4DWRNtJ0VPAmq8ESSlPSZv1WT6', 1, 1, NULL, '2022-08-20 04:12:23', '2022-08-20 04:12:23');
+INSERT INTO `users` (`id`, `name`, `email`, `phone`, `city`, `address`, `dob`, `email_verified_at`, `role_id`, `gender`, `avatar`, `remarks`, `password`, `is_approved`, `is_admin`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Admin', 'admin@mail.com', '3403877126', NULL, NULL, NULL, NULL, '1', NULL, NULL, NULL, '$2y$10$janHpavCkF2WkBF4iazR3.j9PrV4DWRNtJ0VPAmq8ESSlPSZv1WT6', 1, 1, NULL, '2022-08-20 04:12:23', '2022-08-20 04:12:23'),
+(3, 'Designer', 'designer@mail.com', '1234567891', NULL, NULL, NULL, NULL, '2', NULL, NULL, NULL, '$2y$10$janHpavCkF2WkBF4iazR3.j9PrV4DWRNtJ0VPAmq8ESSlPSZv1WT6', 1, 0, NULL, '2022-08-20 04:12:23', '2022-08-20 04:12:23'),
+(4, 'Test customer', 'testcustomer@mail.com', '123456789', 'Mumbai', 'Mumbai, INDIA', NULL, NULL, '4', 'male', NULL, NULL, '$2y$10$janHpavCkF2WkBF4iazR3.j9PrV4DWRNtJ0VPAmq8ESSlPSZv1WT6', 1, 0, NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -634,6 +733,12 @@ ALTER TABLE `catlog_categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `deliverystatuses`
+--
+ALTER TABLE `deliverystatuses`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `designer_details`
 --
 ALTER TABLE `designer_details`
@@ -650,6 +755,7 @@ ALTER TABLE `designer_products`
 --
 ALTER TABLE `ecom_orders`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `ecom_orders_tracking_id_unique` (`tracking_id`),
   ADD KEY `ecom_orders_buyer_id_foreign` (`buyer_id`);
 
 --
@@ -688,6 +794,12 @@ ALTER TABLE `fabric_orders`
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `favorite_products`
+--
+ALTER TABLE `favorite_products`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -813,7 +925,7 @@ ALTER TABLE `bank_details`
 -- AUTO_INCREMENT for table `banners`
 --
 ALTER TABLE `banners`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `catlogs`
@@ -826,6 +938,12 @@ ALTER TABLE `catlogs`
 --
 ALTER TABLE `catlog_categories`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `deliverystatuses`
+--
+ALTER TABLE `deliverystatuses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `designer_details`
@@ -843,13 +961,13 @@ ALTER TABLE `designer_products`
 -- AUTO_INCREMENT for table `ecom_orders`
 --
 ALTER TABLE `ecom_orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `ecom_order_items`
 --
 ALTER TABLE `ecom_order_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `extras`
@@ -882,6 +1000,12 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `favorite_products`
+--
+ALTER TABLE `favorite_products`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `manufacturer_details`
 --
 ALTER TABLE `manufacturer_details`
@@ -903,7 +1027,7 @@ ALTER TABLE `member_transactions`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `oauth_clients`
@@ -933,19 +1057,19 @@ ALTER TABLE `order_details`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `product_categories`
 --
 ALTER TABLE `product_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `transactions`
@@ -957,7 +1081,7 @@ ALTER TABLE `transactions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
