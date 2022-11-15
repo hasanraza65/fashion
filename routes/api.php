@@ -83,3 +83,8 @@ Route::get('/productsbycategory', 'AllProductsController@productsByCategory');
 //track order by tracking id 
 Route::get('/getorderbytrackingid', 'Api\User\EcomOrdersController@getOrderByTrackingId')->middleware('auth:api');
 
+
+//OTP LOGIN API
+Route::post('sendotp', [App\Http\Controllers\Api\User\UserOTPController::class, 'sendOTP']);
+Route::post('verifyotp', [App\Http\Controllers\Api\User\UserOTPController::class, 'verifyOTP']);
+

@@ -13,7 +13,14 @@ class AllProductsController extends Controller
 
         $products = Product::where('is_active', 1)->get();
 
-        return response(['products' => $products]);
+        if(count($products)>0){
+            $message = "Products Found";
+        }else{
+
+            $message = "No Any Product Found";
+        }
+
+        return response(['success'=>true,'message'=>$message,'data' => $products]);
     }
 
     public function apiProductsCategories()
@@ -21,7 +28,15 @@ class AllProductsController extends Controller
 
         $productscategories = ProductCategory::all();
 
-        return response(['product_categories' => $productscategories]);
+        if(count($productscategories)>0){
+            $message = "Categories Found";
+        }else{
+
+            $message = "No Any Category Found";
+        }
+
+        return response(['success'=>true, 'message'=>$message, 'data' => $productscategories]);
+
     }
 
     public function productDetail($id){
@@ -30,7 +45,14 @@ class AllProductsController extends Controller
         $product = Product::find($id);
         $categories = ProductCategory::all();
 
-        return response(['product' => $product]);
+        if($product){
+            $message = "Product Found";
+        }else{
+
+            $message = "No Any Product Found";
+        }
+
+        return response(['success'=>true, 'message'=>$message, 'data' => $product]);
 
     }
 
@@ -41,7 +63,14 @@ class AllProductsController extends Controller
         $products = Product::where('name', 'LIKE', '%'.$name.'%')
         ->get();
 
-        return response(['products' => $products]);
+        if(count($products)>0){
+            $message = "Products Found";
+        }else{
+
+            $message = "No Any Product Found";
+        }
+
+        return response(['success'=>true, 'message'=>$message, 'data' => $products]);
     }
 
     public function productsByCategory(Request $request){
@@ -51,6 +80,13 @@ class AllProductsController extends Controller
         $products = Product::where('category_id',$category_id)
         ->get();
 
-        return response(['products' => $products]);
+        if(count($products)>0){
+            $message = "Products Found";
+        }else{
+
+            $message = "No Any Product Found";
+        }
+
+        return response(['success'=>true, 'message'=>$message, 'data' => $products]);
     }
 }
