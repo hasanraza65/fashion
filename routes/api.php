@@ -88,3 +88,6 @@ Route::get('/getorderbytrackingid', 'Api\User\EcomOrdersController@getOrderByTra
 Route::post('sendotp', [App\Http\Controllers\Api\User\UserOTPController::class, 'sendOTP']);
 Route::post('verifyotp', [App\Http\Controllers\Api\User\UserOTPController::class, 'verifyOTP']);
 
+//products by designer id
+Route::get('/products_by_designerid/{id}', 'AllProductsController@productsByDesigner');
+

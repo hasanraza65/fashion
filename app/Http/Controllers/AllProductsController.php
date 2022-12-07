@@ -11,7 +11,9 @@ class AllProductsController extends Controller
     public function apiProducts()
     {
 
-        $products = Product::where('is_active', 1)->get();
+        $products = Product::where('is_active', 1)
+        ->with('categoryDetail')
+        ->get();
 
         if(count($products)>0){
             $message = "Products Found";
@@ -42,7 +44,7 @@ class AllProductsController extends Controller
     public function productDetail($id){
 
        
-        $product = Product::find($id);
+        $product = Product::with('categoryDetail')->find($id);
         $categories = ProductCategory::all();
 
         if($product){
@@ -61,6 +63,7 @@ class AllProductsController extends Controller
         $name = $request->title;
 
         $products = Product::where('name', 'LIKE', '%'.$name.'%')
+        ->with('categoryDetail')
         ->get();
 
         if(count($products)>0){
@@ -78,6 +81,7 @@ class AllProductsController extends Controller
         $category_id = $request->category_id;
 
         $products = Product::where('category_id',$category_id)
+        ->with('categoryDetail')
         ->get();
 
         if(count($products)>0){
@@ -88,5 +92,23 @@ class AllProductsController extends Controller
         }
 
         return response(['success'=>true, 'message'=>$message, 'data' => $products]);
+    }
+
+    public function productsByDesigner($id)
+    {
+
+        $products = Product::where('is_active', 1)
+        ->with('categoryDetail')
+        ->where('user_id',$id)
+        ->get();
+
+        if(count($products)>0){
+            $message = "Products Found";
+        }else{
+
+            $message = "No Any Product Found";
+        }
+
+        return response(['success'=>true,'message'=>$message,'data' => $products]);
     }
 }
