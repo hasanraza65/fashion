@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
 use App\ProductCategory;
+use App\ProductGallery;
 use Auth;
 use File;
 use Illuminate\Support\Facades\Storage;
@@ -103,7 +104,46 @@ class ListProductController extends Controller
         $product->in_stock = $in_stock;
         $product->category_id = $request->p_category;
         $product->save();
+
+        //storing gallery images 
+        for($i=0; $i<count($request->gallery_images); $i++){
+
+        $gallery = new ProductGallery();
+
+            if(isset($_FILES['gallery_images'])){
+                if ($_FILES['gallery_images']['name'][$i]) {
+                    if (!$_FILES['gallery_images']['error'][$i]) {
+                       
+                        $filetestname = request()->file('gallery_images')[$i];
+                        $destination = Storage::disk('public')->put('/images', $filetestname);
+                        //echo '/images/' . $filename;
+    
+                        $gallery->image = 'storage/'.$destination;
+                    
+                    } else {
+    
+                        //$gallery->image = 'storage/'.$request->old_pic;
+                        $gallery->image = "";
+    
+                        //echo 'Ooops!  Your upload triggered the following error:  '.$_FILES['file']['error'];
+                    }
+                    
+                  }
+    
+            }
+
+
+        //$gallery->image = $request->gallery_images[$i];
+        $gallery->product_id = $product->id;
+        $gallery->save();
+
+        }
+        //ending storing gallery images
+
         session()->flash('success', ' Product Added Successfully');
+
+        print_r($_FILES['gallery_images']);
+
         return redirect()->route('products.index');
     }
 

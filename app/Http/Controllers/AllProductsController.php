@@ -14,6 +14,7 @@ class AllProductsController extends Controller
         $products = Product::where('is_active', 1)
         ->with('categoryDetail')
         ->with('userDetail')
+        ->with('galleryImages')
         ->get();
 
         if(count($products)>0){
@@ -45,7 +46,10 @@ class AllProductsController extends Controller
     public function productDetail($id){
 
        
-        $product = Product::with('categoryDetail')->find($id);
+        $product = Product::with('categoryDetail')
+        ->with('galleryImages')
+        ->with('userDetail')
+        ->find($id);
         $categories = ProductCategory::all();
 
         if($product){
@@ -64,7 +68,9 @@ class AllProductsController extends Controller
         $name = $request->title;
 
         $products = Product::where('name', 'LIKE', '%'.$name.'%')
+        ->with('galleryImages')
         ->with('categoryDetail')
+        ->with('userDetail')
         ->get();
 
         if(count($products)>0){
@@ -82,7 +88,9 @@ class AllProductsController extends Controller
         $category_id = $request->category_id;
 
         $products = Product::where('category_id',$category_id)
+        ->with('galleryImages')
         ->with('categoryDetail')
+        ->with('userDetail')
         ->get();
 
         if(count($products)>0){
@@ -99,7 +107,9 @@ class AllProductsController extends Controller
     {
 
         $products = Product::where('is_active', 1)
+        ->with('galleryImages')
         ->with('categoryDetail')
+        ->with('userDetail')
         ->where('user_id',$id)
         ->get();
 
