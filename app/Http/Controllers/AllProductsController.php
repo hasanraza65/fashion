@@ -13,6 +13,7 @@ class AllProductsController extends Controller
 
         $products = Product::where('is_active', 1)
         ->with('categoryDetail')
+        ->with('userDetail')
         ->get();
 
         if(count($products)>0){

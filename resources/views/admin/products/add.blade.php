@@ -37,6 +37,13 @@
                         <input type="file"  id="input-22" name="image" value="">
 					  </div>
                      </div>
+                      
+                      <div class="form-group row">
+					  <label for="input-22" class="col-sm-2 col-form-label">Product Gallery Images</label>
+					  <div class="col-sm-10">
+                        <input type="file"  id="input-22" name="gallery_images" value="" multiple>
+					  </div>
+                     </div>
 
                      <div class="form-group row">
 					  <label for="input-23" class="col-sm-2 col-form-label">Short Description</label>
