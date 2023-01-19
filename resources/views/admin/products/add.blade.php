@@ -1,6 +1,23 @@
 @extends('layouts.admin')
 
 @section('content')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<script>
+$(document).ready(function(){
+  $("#addRow").click(function(){
+    var newrow = `<tr>
+						<td><input placeholder="Size Name i.e. Small" type="text" class="form-control" name="size_name[]"></td>
+						<td><input placeholder="Quantity" type="number" class="form-control" name="quantity[]"></td>
+						<td><button type="button" id="deleteRow" class="btn btn-danger">Remove</button></td>
+					</tr>`;
+
+		//$('#sizes_table').prepend(newrow);
+
+		$('#sizes_table tr:last').after(newrow);
+  });
+});
+</script>
 
     <div class="container-fluid">
         <!-- Breadcrumb-->
@@ -71,12 +88,31 @@
 					  </div>
                      </div>
 
+					 <div class="card p-4">
+						<h5>Product Sizes</h5>
+						<table class="table" id="sizes_table">
+							<tr>
+								<th>Size</th>
+								<th>Quantity</th>
+								<th>Remove</th>
+							</tr>
+							<tr>
+								<td><input placeholder="Size Name i.e. Small" type="text" class="form-control" name="size_name[]"></td>
+								<td><input placeholder="Quantity" type="number" class="form-control" name="quantity[]"></td>
+								<td><button type="button" id="deleteRow" class="btn btn-danger">Remove</button></td>
+							</tr>
+						</table>
+						<td><button type="button" id="addRow" class="btn btn-primary">Add</button></td>
+					 </div>
+
+					 <!---
                      <div class="form-group row">
 					  <label for="input-25" class="col-sm-2 col-form-label">Product Quantities</label>
 					  <div class="col-sm-10">
                         <input min="0" type="number" class="form-control" id="input-25" placeholder="Enter Product QTY" name="p_price" value="" required autocomplete="p_qty" autofocus>
 					  </div>
                      </div>
+					 --->
 
                      <div class="form-group row">
 					  <label for="input-26" class="col-sm-2 col-form-label">Product Price (Per Quantity)</label>
@@ -105,4 +141,13 @@
 <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
 <!--End Back To Top Button-->
 <!--Start footer-->
+
+<script>
+
+$("#sizes_table").on("click", "#deleteRow", function() {
+   $(this).closest("tr").remove();
+});
+
+</script>
+
 @endsection

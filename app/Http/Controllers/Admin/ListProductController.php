@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\ProductCategory;
 use App\ProductGallery;
+use App\ProductSizes;
 use Auth;
 use File;
 use Illuminate\Support\Facades\Storage;
@@ -142,7 +143,19 @@ class ListProductController extends Controller
 
         session()->flash('success', ' Product Added Successfully');
 
-        print_r($_FILES['gallery_images']);
+
+        //product sizes
+        if(!empty($request->size_name)){
+            for($i=0; $i<count($request->size_name); $i++){
+            $sizes = new ProductSizes();
+            $sizes->size_name = $request->size_name[$i];
+            $sizes->size_qty = $request->quantity[$i];
+            $sizes->product_id = $product->id;
+            $sizes->save();
+            }
+        }
+
+        //ending product sizes
 
         return redirect()->route('products.index');
     }
