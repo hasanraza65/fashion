@@ -2,6 +2,22 @@
 
 @section('content')
 
+<script>
+$(document).ready(function(){
+  $("#addRow").click(function(){
+    var newrow = `<tr>
+						<td><input placeholder="Size Name i.e. Small" type="text" class="form-control" name="size_name[]"></td>
+						<td><input placeholder="Quantity" type="number" class="form-control" name="quantity[]"></td>
+						<td><button type="button" id="deleteRow" class="btn btn-danger">Remove</button></td>
+					</tr>`;
+
+		//$('#sizes_table').prepend(newrow);
+
+		$('#sizes_table tr:last').after(newrow);
+  });
+});
+</script>
+
     <div class="container-fluid">
         <!-- Breadcrumb-->
         <div class="row pt-2 pb-2">
@@ -43,6 +59,29 @@
 					  </div>
                      </div>
 
+                     <!--- gallery imgs ---> 
+
+                     <div class="form-group row">
+					  <label for="input-22" class="col-sm-2 col-form-label">Product Gallery Images</label>
+					  <div class="col-sm-10">
+                        <input type="file"  id="input-22" name="gallery_images[]" value="" multiple>
+					  </div>
+                     </div>
+
+                     <div class="p-4 row">
+                        @foreach($product->galleryImages as $galleryimgs)
+                        
+                        <div class="col-md-3" id="gal_img{{$galleryimgs->id}}">
+                        <input type="hidden" name="old_gal_imgs[]" value="{{$galleryimgs->image}}">
+                        <img src="/{{$galleryimgs->image}}" class="m-2" alt="Gallery Image" width="120" height="100">
+                        <button onclick="removeGalImg({{$galleryimgs->id}})" type="button" class="btn btn-danger btn-sm mr-4">X</button>
+                        </div>
+
+                        @endforeach
+                    </div>
+
+                     <!--- gallery imgs --->
+
                      <div class="form-group row">
 					  <label for="input-23" class="col-sm-2 col-form-label">Short Description</label>
 					  <div class="col-sm-10">
@@ -72,6 +111,27 @@
 						</select>
 					  </div>
                      </div>
+                    
+                     <!--- product sizes --> 
+                     <div class="card p-4">
+						<h5>Product Sizes</h5>
+						<table class="table" id="sizes_table">
+							<tr>
+								<th>Size</th>
+								<th>Quantity</th>
+								<th>Remove</th>
+							</tr>
+                            @foreach($product->sizes as $product_sizes)
+							<tr>
+								<td><input value="{{$product_sizes->size_name}}" placeholder="Size Name i.e. Small" type="text" class="form-control" name="size_name[]"></td>
+								<td><input value="{{$product_sizes->size_qty}}" placeholder="Quantity" type="number" class="form-control" name="quantity[]"></td>
+								<td><button type="button" id="deleteRow" class="btn btn-danger">Remove</button></td>
+							</tr>
+                            @endforeach
+						</table>
+						<td><button type="button" id="addRow" class="btn btn-primary">Add</button></td>
+					 </div>
+                     <!--- ending product sizes --> 
 
                      <div class="form-group row">
 					  <label for="input-25" class="col-sm-2 col-form-label">Product Quantities</label>
@@ -123,4 +183,21 @@
 <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
 <!--End Back To Top Button-->
 <!--Start footer-->
+
+<script>
+    function removeGalImg(id){
+
+        $('#gal_img'+id).remove();
+
+    }
+</script>
+
+<script>
+
+$("#sizes_table").on("click", "#deleteRow", function() {
+   $(this).closest("tr").remove();
+});
+
+</script>
+
 @endsection

@@ -182,7 +182,11 @@ class ListProductController extends Controller
         if (Auth::user()->is_admin == 0) {
             return redirect(route('home'));
         }
-        $product = Product::find($id);
+        $product = Product::with('galleryImages')
+        ->with('categoryDetail')
+        ->with('userDetail')
+        ->with('sizes')
+        ->find($id);
         $categories = ProductCategory::all();
         $title = "Product  Edit";
 
@@ -241,6 +245,78 @@ class ListProductController extends Controller
         $product->category_id = $request->p_category;
         
         $product->update();
+
+        $cleargallery = ProductGallery::where('product_id',$product->id)->delete();
+
+        //storing gallery images 
+        if(!empty($request->gallery_images)){
+        for($i=0; $i<count($request->gallery_images); $i++){
+
+            $gallery = new ProductGallery();
+    
+                if(isset($_FILES['gallery_images'])){
+                    if ($_FILES['gallery_images']['name'][$i]) {
+                        if (!$_FILES['gallery_images']['error'][$i]) {
+                           
+                            $filetestname = request()->file('gallery_images')[$i];
+                            $destination = Storage::disk('public')->put('/images', $filetestname);
+                            //echo '/images/' . $filename;
+        
+                            $gallery->image = 'storage/'.$destination;
+                        
+                        } else {
+        
+                            //$gallery->image = 'storage/'.$request->old_pic;
+                            $gallery->image = "";
+        
+                            //echo 'Ooops!  Your upload triggered the following error:  '.$_FILES['file']['error'];
+                        }
+                        
+                      }
+        
+                }
+    
+    
+            //$gallery->image = $request->gallery_images[$i];
+            $gallery->product_id = $product->id;
+            $gallery->save();
+    
+            }
+        }
+            //ending storing gallery images
+
+            //storing again old gallery imgs
+
+            if(!empty($request->old_gal_imgs)){
+
+                for($j=0; $j<count($request->old_gal_imgs); $j++){
+
+                    $old_gallery = new ProductGallery();
+                    $old_gallery->image = $request->old_gal_imgs[$j];
+                    $old_gallery->product_id = $product->id;
+                    $old_gallery->save();
+
+                }
+
+            }
+
+            //ending storing again old gallery imgs
+
+            //product sizes
+            $clear_oldsizes = ProductSizes::where('product_id',$product->id)->delete();
+            if(!empty($request->size_name)){
+                for($i=0; $i<count($request->size_name); $i++){
+                $sizes = new ProductSizes();
+                $sizes->size_name = $request->size_name[$i];
+                $sizes->size_qty = $request->quantity[$i];
+                $sizes->product_id = $product->id;
+                $sizes->save();
+                }
+            }
+
+        //ending product sizes
+
+
         session()->flash('success', ' Product Updated Successfully');
         return back();
     }

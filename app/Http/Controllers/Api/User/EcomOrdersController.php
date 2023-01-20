@@ -8,6 +8,7 @@ use App\Product;
 use App\Deliverystatus;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\ProductSizes;
 use auth;
 
 class EcomOrdersController extends Controller
@@ -73,6 +74,7 @@ class EcomOrdersController extends Controller
         foreach($request->order_item as $itemsdata){
 
             //managing quantities stock
+            /*
             $productid = $itemsdata['product_id'];
             $currentItem = Product::find($productid);
             $newitemqty = $currentItem->p_qty-$itemsdata['selected_qty'];
@@ -83,12 +85,28 @@ class EcomOrdersController extends Controller
             }else{
             EcomOrders::find($ecom_order->id)->delete();
             return response(['order' => $ecom_order,'msg' => "You don't have enough quantity for ".$currentItem->name]);
-            }
+            } */
             //ending managing quantities stock
+
+            //manage stock new
+
+            $current_size = ProductSizes::where('size_name',$itemsdata['selected_size'])
+            ->where('product_id',$itemsdata['product_id'])
+            ->first();
+            $new_qty = $current_size->size_qty-$itemsdata['selected_qty'];
+            if($new_qty < 0){
+                return response(['order' => $ecom_order,'msg' => "You don't have enough quantity for ".$currentItem->name]);
+            }
+
+            $current_size->size_qty = $new_qty;
+            $current_size->update();
+
+            //ending manage stock new
 
             $ecomorderitems = new EcomOrderItems;
             $ecomorderitems->product_id = $itemsdata['product_id'];
             $ecomorderitems->selected_qty = $itemsdata['selected_qty'];
+            $ecomorderitems->selected_size = $itemsdata['selected_size'];
             $ecomorderitems->price = $itemsdata['item_price'];
             $ecomorderitems->ecom_order_id = $ecom_order->id;
             $ecomorderitems->save();
