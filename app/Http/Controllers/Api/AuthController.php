@@ -116,6 +116,8 @@ class AuthController extends Controller
                 $response = Password::sendResetLink($request->only('email'), function (Message $message) {
                     $message->subject($this->getEmailSubject());
                 });
+
+                //return $response;
                 switch ($response) {
                     case Password::RESET_LINK_SENT:
                         return \Response::json(array("status" => 200, "message" => trans($response), "data" => array()));
@@ -129,5 +131,82 @@ class AuthController extends Controller
             }
         }
         return \Response::json($arr);
+    }
+
+    public function socialLogin(Request $request){
+
+        $user = User::where('social_id',$request->id)->first();
+
+        if($user){
+
+        $token = $user->createToken('newToken')->accessToken;
+
+        $arr = array("status" => 200, "message" => 'Logged In','user' => $user, 'token' => $token);
+
+        }else{
+
+            $user = User::where('email',$request->email)->first();
+
+            if($user){
+
+                $user->social_id = $request->id;
+                $user->update();
+
+                $token = $user->createToken('newToken')->accessToken;
+
+                $arr = array("status" => 200, "message" => 'Logged In','user' => $user, 'token' => $token);
+
+            }else{
+
+                $user = new User();
+                $user->email = $request->email;
+                $user->password = "password";
+                $user->social_id = $request->id;
+                $user->name = $request->name;
+                $user->save();
+
+                $token = $user->createToken('newToken')->accessToken;
+
+                $arr = array("status" => 200, "message" => 'New User Created','user' => $user, 'token' => $token);
+
+            }
+
+            
+
+        }
+
+        return \Response::json($arr);
+
+    }
+
+    public function sendResetLink(Request $request){
+
+            $credentials = request()->validate(['email' => 'required|email']);
+    
+            Password::sendResetLink($credentials);
+    
+            return response()->json(["msg" => 'Reset password link sent on your email id.']);
+
+    }
+
+    public function updateProfile(Request $request){
+
+        $data = User::find(Auth::user()->id);
+
+        //check if phone registered to another user
+        $check_phone = User::where('phone',$request->phone)
+        ->where('id','!=',Auth::user()->id)
+        ->first();
+
+        if($check_phone){
+            return response()->json(["msg" => 'Error: Phone already registered with another account', "data"=>$data],401);
+        }
+        //ending check phone
+
+        $data = $data->update($request->all());
+
+        return response()->json(["msg" => 'Profile has been updated', "data"=>$data],200);
+
+
     }
 }

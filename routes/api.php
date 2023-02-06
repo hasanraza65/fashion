@@ -26,6 +26,12 @@ Route::post('/register', 'Api\AuthController@register');
 Route::post('/login', 'Api\AuthController@login');
 Route::post('/changePassword', 'Api\AuthController@changePassword');
 Route::post('/forgot_password', 'Api\AuthController@forgot_password');
+Route::post('/social_login', 'Api\AuthController@socialLogin');
+
+//testing reset pass
+Route::post('/sendresetlink', 'Api\AuthController@sendResetLink');
+
+
 // Route::apiResource('/reciver', 'Api\ReciverController')->middleware('auth:api');
 // Route::apiResource('/cities', 'Api\CitiesController');
 // Route::apiResource('/req', 'Api\RequestListController')->middleware('auth:api');;
@@ -90,4 +96,11 @@ Route::post('verifyotp', [App\Http\Controllers\Api\User\UserOTPController::class
 
 //products by designer id
 Route::get('/products_by_designerid/{id}', 'AllProductsController@productsByDesigner');
+
+
+Route::get('/check_stock_by_size/{size_id}', 'Api\User\EcomOrdersController@checkStockBySize');
+
+//update profile by auth user
+Route::post('/update_profile', 'Api\AuthController@updateProfile')->middleware('auth:api');
+
 

@@ -27,6 +27,7 @@ class EcomOrdersController extends Controller
         $orders = EcomOrders::where('buyer_id', auth::user()->id)
         ->with('orderItems')
         ->with('orderBuyer')
+        ->with('orderItems.sizesData')
         ->get();
        
         return response(['my_orders' => $orders]);
@@ -230,6 +231,14 @@ class EcomOrdersController extends Controller
         $status =  Deliverystatus::where('ecom_order_id', $orderid)->get();
 
         return response(['order'=>$order, 'status_array'=>$status, 'msg' => "Found", 'status' => 200]);
+
+    }
+
+    public function checkStockBySize($id){
+
+        $data = ProductSizes::find($id);
+
+        return response(['msg' => "Success",'data' => $data]);
 
     }
 }

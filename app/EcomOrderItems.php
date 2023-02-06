@@ -10,4 +10,9 @@ class EcomOrderItems extends Model
     {
         return $this->hasOne('App\Product', 'id', 'product_id');
     }
+
+    public function sizesData()
+    {
+        return $this->hasMany('App\ProductSizes', 'id', 'selected_size');
+    }
 }
